@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +44,15 @@ public class GlavnaController {
         colGradNaziv.setCellValueFactory(new PropertyValueFactory("naziv"));
         colGradStanovnika.setCellValueFactory(new PropertyValueFactory("brojStanovnika"));
         colGradDrzava.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDrzava().getNaziv()));
+    }
+
+    public void prikaziIzvjestaj(ActionEvent actionEvent) {
+        try {
+            new GradoviReport().showReport(dao.getConn());
+        } catch (JRException e1) {
+            e1.printStackTrace();
+        }
+
     }
 
     public void actionDodajGrad(ActionEvent actionEvent) {
